@@ -14,3 +14,9 @@
     - It turns out IsaacSim cannot read the .stl files of the Allegro hand mesh from Bidexhand (Strange). If replacing the .stl with .obj found in other github repo, IsaacSim can import it.
   - Find another useful [Allegro Hand repo](https://github.com/simlabrobotics/allegro_hand_ros/tree/master). The urdf can be imported into IsaacSim if the change the "." in the file name of the stl mesh (They are named like "link_0.0.STL" at the beginning, and IsaacSim cannot import them)
   - **Useful Online URDF viewer: [link](https://github.com/gkjohnson/urdf-loaders)**
+
+#### Try importing the created urdf into IsaacGym
+
+- The urdf can be imported, but the simulation of joint_pos_control doesn't work (some joint keeps spinning, simulation not converging) (*2025.3.10*)
+  - Changed the IsaacGym asset dof prop, "armature" to 0.01 using `hand_arm_dof_props["armature"].fill(0.01)`, the simulation converged. But joint pos control still doesn't work well
+  - Used another urdf and the simulation works fine. The arm part urdf is exactly the same. It seems the problem is the hand part? Maybe the inertia  or mass value is causing the first urdf file to be unstable.
